@@ -8,6 +8,8 @@ import {
   ScrollView,
 } from 'react-native';
 
+import Alert from './Alert';
+
 const AlertsBox = ({showAlerts, alerts}) => {
   const viewRequest = () => {};
 
@@ -24,21 +26,7 @@ const AlertsBox = ({showAlerts, alerts}) => {
         <View className="h-full">
           <ScrollView className="">
             {alerts.map(alert => (
-              <Pressable
-                key={alert.number}
-                onPress={viewRequest}
-                style={({pressed}) => [
-                  {
-                    backgroundColor: pressed ? 'rgb(210, 230, 255)' : '#f1f5f9',
-                    marginVertical: 5,
-                    paddingHorizontal: 17,
-                    borderRadius: 3,
-                  },
-                ]}>
-                <Text className="text-sm text-left  py-2">
-                  Your request #{alert.number} has been {alert.status}.
-                </Text>
-              </Pressable>
+              <Alert alert={alert} />
             ))}
           </ScrollView>
         </View>
