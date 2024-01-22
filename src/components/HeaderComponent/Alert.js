@@ -1,20 +1,17 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  Pressable,
-  TouchableOpacity,
-  TouchableHighlight,
-  ScrollView,
-} from 'react-native';
+import {Text, Pressable} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const Alert = ({alert}) => {
-  const viewRequest = () => {};
+  const navigation = useNavigation();
+  const requestInfo = () => {
+    navigation.navigate('RequestInfo');
+  };
 
   return (
     <Pressable
       key={alert.number}
-      onPress={viewRequest}
+      onPress={requestInfo}
       style={({pressed}) => [
         {
           backgroundColor: pressed ? 'rgb(210, 230, 255)' : '#f1f5f9',
