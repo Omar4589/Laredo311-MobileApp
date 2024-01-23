@@ -12,7 +12,12 @@ import {
 import Navigation from './src/navigation/Navigation';
 
 function App() {
-  return <Navigation />;
+  return (
+    <>
+      <StatusBar />
+      <Navigation />
+    </>
+  );
 }
 
 export default App;
