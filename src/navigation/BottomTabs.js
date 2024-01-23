@@ -5,21 +5,21 @@ import MyAccount from '../screens/MyAccount';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useNavigation, DrawerActions} from '@react-navigation/native';
 import Item1Screen from './Item1';
-
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import DrawerNavigator from './DrawerNavigator';
 
 const Tab = createBottomTabNavigator();
 
-const useDrawerNavigation = () => {
-  const navigation = useNavigation();
-  return React.useMemo(() => {
-    return {
-      ...navigation,
-      openDrawer: () => navigation.dispatch(DrawerActions.openDrawer()),
-      closeDrawer: () => navigation.dispatch(DrawerActions.closeDrawer()),
-    };
-  }, [navigation]);
-};
+// const useDrawerNavigation = () => {
+//   const navigation = useNavigation();
+//   return React.useMemo(() => {
+//     return {
+//       ...navigation,
+//       openDrawer: () => navigation.dispatch(DrawerActions.openDrawer()),
+//       closeDrawer: () => navigation.dispatch(DrawerActions.closeDrawer()),
+//     };
+//   }, [navigation]);
+// };
 
 // Function to generate tab options
 const createTabOptions = (iconNameFocused, iconNameUnfocused, iconLibrary) => ({
@@ -45,7 +45,7 @@ const TabIcon = ({name, library, color, size}) => {
 };
 
 const BottomTabs = () => {
-  const navigation = useDrawerNavigation();
+  const navigation = useNavigation();
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -76,7 +76,7 @@ const BottomTabs = () => {
             // Prevent default action
             e.preventDefault();
             // Open the drawer
-            navigation.openDrawer();
+            navigation.navigate('DrawerNavigator');
           },
         }}
       />
