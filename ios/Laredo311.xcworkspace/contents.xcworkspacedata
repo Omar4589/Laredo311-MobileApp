@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/omarzumaya/Desktop/Laredo311/ios/Fonts">
+   </FileRef>
+   <FileRef
       location = "group:Laredo311.xcodeproj">
    </FileRef>
    <FileRef
