@@ -1,11 +1,11 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import BottomTabs from './BottomTabs';
+import AppDrawerNavigator from './AppDrawerNavigator';
 
 const Navigation = () => {
   return (
     <NavigationContainer>
-      <BottomTabs />
+      <AppDrawerNavigator />
     </NavigationContainer>
   );
 };

@@ -2,17 +2,24 @@ import React from 'react';
 import Home from '../screens/Home';
 import MyRequests from '../screens/MyRequests';
 import MyAccount from '../screens/MyAccount';
-import Menu from '../screens/Menu';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {useNavigation, DrawerActions} from '@react-navigation/native';
+import Item1Screen from './Item1';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+
 const Tab = createBottomTabNavigator();
 
-// Constants for icon size and color
-const ICON_SIZE = 25;
-const ICON_COLOR = '#000000';
+const useDrawerNavigation = () => {
+  const navigation = useNavigation();
+  return React.useMemo(() => {
+    return {
+      ...navigation,
+      openDrawer: () => navigation.dispatch(DrawerActions.openDrawer()),
+      closeDrawer: () => navigation.dispatch(DrawerActions.closeDrawer()),
+    };
+  }, [navigation]);
+};
 
 // Function to generate tab options
 const createTabOptions = (iconNameFocused, iconNameUnfocused, iconLibrary) => ({
@@ -38,6 +45,7 @@ const TabIcon = ({name, library, color, size}) => {
 };
 
 const BottomTabs = () => {
+  const navigation = useDrawerNavigation();
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -62,7 +70,15 @@ const BottomTabs = () => {
       <Tab.Screen
         options={createTabOptions('menu', 'menu-outline', Ionicons)}
         name="Menu"
-        component={Menu}
+        component={Item1Screen}
+        listeners={{
+          tabPress: e => {
+            // Prevent default action
+            e.preventDefault();
+            // Open the drawer
+            navigation.openDrawer();
+          },
+        }}
       />
     </Tab.Navigator>
   );
