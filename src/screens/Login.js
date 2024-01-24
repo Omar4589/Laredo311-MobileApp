@@ -67,7 +67,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 190,
   },
-  laredo311: {fontSize: 35, marginBottom: 70},
+  laredo311: {
+    fontSize: 35,
+    marginBottom: 70,
+    fontFamily: 'Exo-BoldItalic',
+  },
   form: {
     width: '80%',
   },
