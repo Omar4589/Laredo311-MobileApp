@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import {TouchableHighlight} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Login = () => {
@@ -14,7 +15,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    // Here you would typically handle the login logic
+    // handle login here
     console.log(email, password);
   };
 
@@ -55,6 +56,12 @@ const Login = () => {
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Log In</Text>
         </TouchableOpacity>
+        <View style={styles.signup}>
+          <Text>Don't have an account yet?</Text>
+          <TouchableHighlight onPress={() => console.log('pressed')}>
+            <Text> Sign Up</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -108,6 +115,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     fontWeight: 'bold',
+  },
+  signup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 25,
+    justifyContent: 'center',
   },
 });
 
