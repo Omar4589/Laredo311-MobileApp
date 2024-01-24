@@ -56,10 +56,13 @@ const Login = () => {
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Log In</Text>
         </TouchableOpacity>
-        <View style={styles.signup}>
+        <View style={styles.signupView}>
           <Text>Don't have an account yet?</Text>
-          <TouchableHighlight onPress={() => console.log('pressed')}>
-            <Text> Sign Up</Text>
+          <TouchableHighlight
+            style={styles.highlight}
+            underlayColor={'#bfdbfe'}
+            onPress={() => console.log('pressed')}>
+            <Text style={styles.signupText}> Sign Up</Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -106,7 +109,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   button: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#2563eb',
     padding: 15,
     borderRadius: 6,
   },
@@ -116,11 +119,15 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
-  signup: {
+  highlight: {borderRadius: 5},
+  signupView: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 25,
     justifyContent: 'center',
+  },
+  signupText: {
+    color: '#2563eb',
   },
 });
 
