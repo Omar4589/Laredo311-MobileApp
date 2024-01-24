@@ -4,7 +4,6 @@ import MyRequestsScreen from '../screens/MyRequestsScreen';
 import MyAccountScreen from '../screens/MyAccountScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useNavigation, DrawerActions} from '@react-navigation/native';
-import Item1Screen from './Item1';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -70,7 +69,7 @@ const BottomTabs = () => {
       <Tab.Screen
         options={createTabOptions('menu', 'menu-outline', Ionicons)}
         name="Menu"
-        component={Item1Screen}
+        component={HomeScreen} //setting this component has no effect here
         listeners={{
           tabPress: e => {
             // Prevent default action
