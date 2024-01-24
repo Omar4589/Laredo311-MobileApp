@@ -1,8 +1,8 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
-import BottomTabs from './BottomTabs';
-import Login from '../screens/Login';
+import BottomTabs from './BottomTabsNavigator';
+import LoginScreen from '../screens/LoginScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -37,7 +37,7 @@ const AppDrawerNavigator = () => {
       />
       <Drawer.Screen
         name="Login / Sign Up"
-        component={Login}
+        component={LoginScreen}
         options={{headerShown: false}}
       />
     </Drawer.Navigator>

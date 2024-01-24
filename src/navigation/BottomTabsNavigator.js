@@ -1,7 +1,7 @@
 import React from 'react';
-import Home from '../screens/Home';
-import MyRequests from '../screens/MyRequests';
-import MyAccount from '../screens/MyAccount';
+import HomeScreen from '../screens/HomeScreen';
+import MyRequestsScreen from '../screens/MyRequestsScreen';
+import MyAccountScreen from '../screens/MyAccountScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useNavigation, DrawerActions} from '@react-navigation/native';
 import Item1Screen from './Item1';
@@ -51,7 +51,7 @@ const BottomTabs = () => {
       <Tab.Screen
         options={createTabOptions('home', 'home-outline', Ionicons)}
         name="Home"
-        component={Home}
+        component={HomeScreen}
       />
       <Tab.Screen
         options={createTabOptions(
@@ -60,12 +60,12 @@ const BottomTabs = () => {
           Ionicons,
         )}
         name="My Requests"
-        component={MyRequests}
+        component={MyRequestsScreen}
       />
       <Tab.Screen
         options={createTabOptions('person', 'person-outline', Ionicons)}
         name="My Account"
-        component={MyAccount}
+        component={MyAccountScreen}
       />
       <Tab.Screen
         options={createTabOptions('menu', 'menu-outline', Ionicons)}
