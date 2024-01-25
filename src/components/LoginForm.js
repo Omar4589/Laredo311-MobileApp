@@ -20,23 +20,16 @@ const LoginForm = ({toggleScreen, navigation}) => {
   const [login, {error}] = useMutation(LOGIN_USER);
 
   const handleLogin = async () => {
-    console.log('Login attempt with:', email, password); // Logging the input
-
     try {
       // Use the 'login' mutation to receive a token
       const {data} = await login({
         variables: {email, password},
       });
-      console.log('Login response:', data); // Logging the response
-
       if (data.login.token) {
         Auth.login(data.login.token); // Store the token
-        // TODO: Navigate to next screen or update state??
         navigation.navigate('ReturnHome');
       }
     } catch (e) {
-      console.log('Login error:', e); // This should log if there's an error
-
       Alert.alert('Login Error', error); // Show login error
     }
   };
