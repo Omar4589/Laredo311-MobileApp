@@ -37,8 +37,6 @@ class AuthService {
   login = async idToken => {
     try {
       await AsyncStorage.setItem('id_token', idToken);
-      // Navigate to the home screen using React Navigation or similar
-      //TODO:
     } catch (error) {
       console.error('Error setting token in secure storage:', error);
     }
@@ -48,7 +46,6 @@ class AuthService {
   logout = async () => {
     try {
       await AsyncStorage.removeItem('id_token');
-      // TODO: Navigate to the login screen
     } catch (error) {
       console.error('Error removing token from secure storage:', error);
     }
