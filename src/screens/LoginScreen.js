@@ -3,7 +3,7 @@ import {SafeAreaView, Text, StyleSheet} from 'react-native';
 import LoginForm from '../components/LoginForm';
 import SignUpForm from '../components/SignUpForm';
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
   const [screen, setscreen] = useState('login');
 
   const toggleScreen = () => {
@@ -17,9 +17,9 @@ const LoginScreen = () => {
         Laredo311
       </Text>
       {screen === 'login' ? (
-        <LoginForm toggleScreen={toggleScreen} />
+        <LoginForm navigation={navigation} toggleScreen={toggleScreen} />
       ) : (
-        <SignUpForm toggleScreen={toggleScreen} />
+        <SignUpForm navigation={navigation} toggleScreen={toggleScreen} />
       )}
     </SafeAreaView>
   );

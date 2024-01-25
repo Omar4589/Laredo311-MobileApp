@@ -1,21 +1,44 @@
 import React, {useState} from 'react';
+import {useMutation} from '@apollo/client';
+import {LOGIN_USER} from '../utils/mutations';
+import Auth from '../utils/auth'; // Adjust the import path as needed
 import {
   Text,
   View,
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from 'react-native';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const LoginForm = ({toggleScreen}) => {
+const LoginForm = ({toggleScreen, navigation}) => {
   const [email, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // handle login here
-    console.log(email, password);
+  const [login, {error}] = useMutation(LOGIN_USER);
+
+  const handleLogin = async () => {
+    console.log('Login attempt with:', email, password); // Logging the input
+
+    try {
+      // Use the 'login' mutation to receive a token
+      const {data} = await login({
+        variables: {email, password},
+      });
+      console.log('Login response:', data); // Logging the response
+
+      if (data.login.token) {
+        Auth.login(data.login.token); // Store the token
+        // TODO: Navigate to next screen or update state??
+        navigation.navigate('ReturnHome');
+      }
+    } catch (e) {
+      console.log('Login error:', e); // This should log if there's an error
+
+      Alert.alert('Login Error', error); // Show login error
+    }
   };
 
   return (
