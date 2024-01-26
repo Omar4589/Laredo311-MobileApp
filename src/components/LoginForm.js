@@ -18,8 +18,10 @@ const LoginForm = ({
   setErrorMessage,
   setShowSnackBar,
 }) => {
-  const [email, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [userInput, setUserInput] = useState({
+    email: '',
+    password: '',
+  });
 
   const [login, {error}] = useMutation(LOGIN_USER);
 
@@ -30,12 +32,25 @@ const LoginForm = ({
     }, 3000);
   };
 
+  //function with regex to check if email is in valid format
+  const isValidEmail = email => {
+    const re = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+    return re.test(String(email));
+  };
+
   const handleLogin = async () => {
     try {
-      const lce = email.toLowerCase();
+      const lce = userInput.email.toLowerCase();
+
+      //check if email is in a valid format
+      if (!isValidEmail(lce)) {
+        setErrorMessage('Please enter a valid email.');
+        openSnackBar();
+        return;
+      }
 
       const {data} = await login({
-        variables: {email: lce, password},
+        variables: {email: lce, password: userInput.password},
       });
       if (data.login && data.login.token) {
         Auth.login(data.login.token);
@@ -51,6 +66,8 @@ const LoginForm = ({
     }
   };
 
+  console.log(userInput);
+
   return (
     <View style={styles.form}>
       <Text style={styles.title}>Login</Text>
@@ -60,8 +77,8 @@ const LoginForm = ({
       </View>
       <TextInput
         style={styles.input}
-        value={email}
-        onChangeText={setUsername}
+        value={userInput.email}
+        onChangeText={value => setUserInput({...userInput, email: value})}
         autoComplete="email"
         maxLength={50}
         selectTextOnFocus={false}
@@ -74,8 +91,8 @@ const LoginForm = ({
       </View>
       <TextInput
         style={styles.input}
-        value={password}
-        onChangeText={setPassword}
+        value={userInput.password}
+        onChangeText={value => setUserInput({...userInput, password: value})}
         autoComplete="password"
         maxLength={32}
         textContentType="password"
