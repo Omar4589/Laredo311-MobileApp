@@ -76,7 +76,7 @@ const SignUpForm = ({
         return;
       }
       //check if new passwords match
-      if (userInput.confirmpassword !== userInput.password) {
+      if (userInput.confirmPassword !== userInput.password) {
         setErrorMessage('Passwords do not match.');
         openSnackBar();
         return;
@@ -90,15 +90,19 @@ const SignUpForm = ({
           password: userInput.password,
         },
       });
-      if (data.createUser.token) {
+      if (data.createUser && data.createUser.token) {
         Auth.login(data.createUser.token);
         navigation.navigation('ReturnHome');
+      } else {
+        setErrorMessage(error.message);
+        openSnackBar();
       }
     } catch (e) {
-      Alert.alert('Sign Up Error');
+      console.log(e);
+      setErrorMessage(e.message);
+      openSnackBar();
     }
   };
-  console.log(userInput);
 
   return (
     <ScrollView contentContainerStyle={styles.contentcontainer}>

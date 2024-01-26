@@ -66,7 +66,6 @@ const LoginForm = ({
     }
   };
 
-  console.log(userInput);
 
   return (
     <View style={styles.form}>
