@@ -1,36 +1,53 @@
 import React, {useState} from 'react';
-import {useMutation} from '@apollo/client';
-import {LOGIN_USER} from '../utils/mutations';
-import Auth from '../utils/auth'; // Adjust the import path as needed
 import {
   Text,
   View,
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Alert,
 } from 'react-native';
+import {useMutation} from '@apollo/client';
+import {LOGIN_USER} from '../utils/mutations';
+import Auth from '../utils/auth'; // Adjust the import path as needed
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const LoginForm = ({toggleScreen, navigation}) => {
+const LoginForm = ({
+  toggleScreen,
+  navigation,
+  setErrorMessage,
+  setShowSnackBar,
+}) => {
   const [email, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const [login, {error}] = useMutation(LOGIN_USER);
 
+  const openSnackBar = () => {
+    setShowSnackBar(true);
+    setTimeout(() => {
+      setShowSnackBar(false);
+    }, 3000);
+  };
+
   const handleLogin = async () => {
     try {
-      // Use the 'login' mutation to receive a token
+      const lce = email.toLowerCase();
+
       const {data} = await login({
-        variables: {email, password},
+        variables: {email: lce, password},
       });
-      if (data.login.token) {
-        Auth.login(data.login.token); // Store the token
+      if (data.login && data.login.token) {
+        Auth.login(data.login.token);
         navigation.navigate('ReturnHome');
+        return;
+      } else {
+        setErrorMessage(error.message);
+        openSnackBar();
       }
     } catch (e) {
-      Alert.alert('Login Error', error); // Show login error
+      setErrorMessage(e.message);
+      openSnackBar();
     }
   };
 

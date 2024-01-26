@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView, Text, StyleSheet} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native'; //this hook runs everytime the screen comes into focus
 import LoginForm from '../components/LoginForm';
@@ -27,14 +27,25 @@ const LoginScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {showSnackBar && <SnackBar message={errorMessage} />}
       <Text
         style={screen === 'signup' ? styles.laredo311Signup : styles.laredo311}>
         Laredo311
       </Text>
       {screen === 'login' ? (
-        <LoginForm navigation={navigation} toggleScreen={toggleScreen} />
+        <LoginForm
+          navigation={navigation}
+          toggleScreen={toggleScreen}
+          setErrorMessage={setErrorMessage}
+          setShowSnackBar={setShowSnackBar}
+        />
       ) : (
-        <SignUpForm navigation={navigation} toggleScreen={toggleScreen} />
+        <SignUpForm
+          navigation={navigation}
+          toggleScreen={toggleScreen}
+          setErrorMessage={setErrorMessage}
+          setShowSnackBar={setShowSnackBar}
+        />
       )}
     </SafeAreaView>
   );
