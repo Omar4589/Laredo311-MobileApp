@@ -1,34 +1,51 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView, Text, StyleSheet} from 'react-native';
+import {useFocusEffect} from '@react-navigation/native'; //this hook runs everytime the screen comes into focus
 import LoginForm from '../components/LoginForm';
 import SignUpForm from '../components/SignUpForm';
 import Auth from '../utils/auth';
+import SnackBar from '../components/SnackBarComponent/SnackBar';
 
 const LoginScreen = ({navigation}) => {
-  useEffect(() => {
-    if (Auth.loggedIn()) {
-      // Navigate to the Home screen if the user is already logged in
-      navigation.navigate('ReturnHome');
-    }
-  }, [navigation]);
   const [screen, setscreen] = useState('login');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [showSnackBar, setShowSnackBar] = useState(false);
+
+  useFocusEffect(() => {
+    const checkAuthStatus = async () => {
+      const authStatus = await Auth.loggedIn();
+      if (authStatus.success) {
+        navigation.navigate('ReturnHome');
+      }
+    };
+    checkAuthStatus();
+  });
 
   const toggleScreen = () => {
     setscreen(screen === 'login' ? 'signup' : 'login');
   };
 
-  return !Auth.loggedIn() ? (
-    navigation.navigate('ReturnHome')
-  ) : (
+  return (
     <SafeAreaView style={styles.container}>
+      {showSnackBar && <SnackBar message={errorMessage} />}
       <Text
         style={screen === 'signup' ? styles.laredo311Signup : styles.laredo311}>
         Laredo311
       </Text>
       {screen === 'login' ? (
-        <LoginForm navigation={navigation} toggleScreen={toggleScreen} />
+        <LoginForm
+          navigation={navigation}
+          toggleScreen={toggleScreen}
+          setErrorMessage={setErrorMessage}
+          setShowSnackBar={setShowSnackBar}
+        />
       ) : (
-        <SignUpForm navigation={navigation} toggleScreen={toggleScreen} />
+        <SignUpForm
+          navigation={navigation}
+          toggleScreen={toggleScreen}
+          setErrorMessage={setErrorMessage}
+          setShowSnackBar={setShowSnackBar}
+        />
       )}
     </SafeAreaView>
   );

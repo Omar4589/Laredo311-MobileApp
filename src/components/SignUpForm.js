@@ -1,7 +1,4 @@
 import React, {useState} from 'react';
-import {useMutation} from '@apollo/client';
-import {CREATE_USER} from '../utils/mutations';
-import Auth from '../utils/auth';
 import {
   Text,
   View,
@@ -10,12 +7,21 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
+import {useMutation} from '@apollo/client';
+import {CREATE_USER} from '../utils/mutations';
+import Auth from '../utils/auth';
 import {ScrollView, TouchableHighlight} from 'react-native-gesture-handler';
+import SnackBar from './SnackBarComponent/SnackBar';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const SignUpForm = ({toggleScreen, navigation}) => {
+const SignUpForm = ({
+  toggleScreen,
+  navigation,
+  setErrorMessage,
+  setShowSnackBar,
+}) => {
   const [userInput, setUserInput] = useState({
-    firstname: '',
+    firstName: '',
     lastName: '',
     email: '',
     password: '',
@@ -24,13 +30,19 @@ const SignUpForm = ({toggleScreen, navigation}) => {
 
   const [createUser, {error}] = useMutation(CREATE_USER);
 
+  const openSnackBar = () => {
+    setShowSnackBar(true);
+    setTimeout(() => {
+      setShowSnackBar(false);
+    }, 3000);
+  };
+
   //function with regex to check if email is in valid format
   const isValidEmail = email => {
     const re = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
     return re.test(String(email));
   };
 
-  // Update your function to accept both the field name and value
   const handleInputChange = (name, value) => {
     let newValue = value;
 
@@ -47,24 +59,29 @@ const SignUpForm = ({toggleScreen, navigation}) => {
   const handleSignUp = async () => {
     try {
       //check if the username is greater than 23 characters
-      if (userInput.firstName.length > 23) {
-        console.log(false);
-        return;
-      }
-      if (userInput.lastName.length > 23) {
-        console.log(false);
-        return;
-      }
-      //check if new passwords match
-      if (userInput.confirmpassword !== userInput.password) {
-        console.log(true);
+      if (userInput.firstName.length === 0 || userInput.lastName.length === 0) {
+        setErrorMessage('Name fields cannot be empty.');
+        openSnackBar();
         return;
       }
       //check if email is in a valid format
       if (!isValidEmail(userInput.email)) {
-        console.log(false);
+        setErrorMessage('Please enter a valid email.');
+        openSnackBar();
         return;
       }
+      if (userInput.password.length < 8) {
+        setErrorMessage('Please enter a password at least 8 characters long.');
+        openSnackBar();
+        return;
+      }
+      //check if new passwords match
+      if (userInput.confirmPassword !== userInput.password) {
+        setErrorMessage('Passwords do not match.');
+        openSnackBar();
+        return;
+      }
+
       const {data} = await createUser({
         variables: {
           firstName: userInput.firstName,
@@ -73,15 +90,19 @@ const SignUpForm = ({toggleScreen, navigation}) => {
           password: userInput.password,
         },
       });
-      if (data.createUser.token) {
+      if (data.createUser && data.createUser.token) {
         Auth.login(data.createUser.token);
         navigation.navigation('ReturnHome');
+      } else {
+        setErrorMessage(error.message);
+        openSnackBar();
       }
     } catch (e) {
-      Alert.alert('Sign Up Error');
+      console.log(e);
+      setErrorMessage(e.message);
+      openSnackBar();
     }
   };
-  console.log(userInput);
 
   return (
     <ScrollView contentContainerStyle={styles.contentcontainer}>
@@ -98,7 +119,7 @@ const SignUpForm = ({toggleScreen, navigation}) => {
               style={styles.input}
               value={userInput.firstName}
               onChangeText={value => handleInputChange('firstName', value)}
-              maxLength={26}
+              maxLength={23}
               selectTextOnFocus={false}
             />
           </View>
@@ -112,7 +133,7 @@ const SignUpForm = ({toggleScreen, navigation}) => {
               style={styles.input}
               value={userInput.lastName}
               onChangeText={value => handleInputChange('lastName', value)}
-              maxLength={26}
+              maxLength={23}
               selectTextOnFocus={false}
             />
           </View>

@@ -1,38 +1,71 @@
 import React, {useState} from 'react';
-import {useMutation} from '@apollo/client';
-import {LOGIN_USER} from '../utils/mutations';
-import Auth from '../utils/auth'; // Adjust the import path as needed
 import {
   Text,
   View,
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Alert,
 } from 'react-native';
+import {useMutation} from '@apollo/client';
+import {LOGIN_USER} from '../utils/mutations';
+import Auth from '../utils/auth'; // Adjust the import path as needed
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const LoginForm = ({toggleScreen, navigation}) => {
-  const [email, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const LoginForm = ({
+  toggleScreen,
+  navigation,
+  setErrorMessage,
+  setShowSnackBar,
+}) => {
+  const [userInput, setUserInput] = useState({
+    email: '',
+    password: '',
+  });
 
   const [login, {error}] = useMutation(LOGIN_USER);
 
+  const openSnackBar = () => {
+    setShowSnackBar(true);
+    setTimeout(() => {
+      setShowSnackBar(false);
+    }, 3000);
+  };
+
+  //function with regex to check if email is in valid format
+  const isValidEmail = email => {
+    const re = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+    return re.test(String(email));
+  };
+
   const handleLogin = async () => {
     try {
-      // Use the 'login' mutation to receive a token
+      const lce = userInput.email.toLowerCase();
+
+      //check if email is in a valid format
+      if (!isValidEmail(lce)) {
+        setErrorMessage('Please enter a valid email.');
+        openSnackBar();
+        return;
+      }
+
       const {data} = await login({
-        variables: {email, password},
+        variables: {email: lce, password: userInput.password},
       });
-      if (data.login.token) {
-        Auth.login(data.login.token); // Store the token
+      if (data.login && data.login.token) {
+        Auth.login(data.login.token);
         navigation.navigate('ReturnHome');
+        return;
+      } else {
+        setErrorMessage(error.message);
+        openSnackBar();
       }
     } catch (e) {
-      Alert.alert('Login Error', error); // Show login error
+      setErrorMessage(e.message);
+      openSnackBar();
     }
   };
+
 
   return (
     <View style={styles.form}>
@@ -43,8 +76,8 @@ const LoginForm = ({toggleScreen, navigation}) => {
       </View>
       <TextInput
         style={styles.input}
-        value={email}
-        onChangeText={setUsername}
+        value={userInput.email}
+        onChangeText={value => setUserInput({...userInput, email: value})}
         autoComplete="email"
         maxLength={50}
         selectTextOnFocus={false}
@@ -57,8 +90,8 @@ const LoginForm = ({toggleScreen, navigation}) => {
       </View>
       <TextInput
         style={styles.input}
-        value={password}
-        onChangeText={setPassword}
+        value={userInput.password}
+        onChangeText={value => setUserInput({...userInput, password: value})}
         autoComplete="password"
         maxLength={32}
         textContentType="password"
