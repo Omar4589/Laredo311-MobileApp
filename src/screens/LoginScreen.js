@@ -1,16 +1,25 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {SafeAreaView, Text, StyleSheet} from 'react-native';
 import LoginForm from '../components/LoginForm';
 import SignUpForm from '../components/SignUpForm';
+import Auth from '../utils/auth';
 
 const LoginScreen = ({navigation}) => {
+  useEffect(() => {
+    if (Auth.loggedIn()) {
+      // Navigate to the Home screen if the user is already logged in
+      navigation.navigate('ReturnHome');
+    }
+  }, [navigation]);
   const [screen, setscreen] = useState('login');
 
   const toggleScreen = () => {
     setscreen(screen === 'login' ? 'signup' : 'login');
   };
 
-  return (
+  return !Auth.loggedIn() ? (
+    navigation.navigate('ReturnHome')
+  ) : (
     <SafeAreaView style={styles.container}>
       <Text
         style={screen === 'signup' ? styles.laredo311Signup : styles.laredo311}>

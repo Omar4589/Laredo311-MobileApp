@@ -12,24 +12,56 @@ class AuthService {
 
   // Method to check if a user is logged in
   loggedIn = async () => {
-    const token = this.getToken(); // Retrieve token from local storage
-    // Check if there is a token and it's not expired, return `true`, otherwise return `false`
-    return token && !this.isTokenExpired(token) ? true : false;
+    try {
+      const token = await this.getToken();
+      if (!token) {
+        return {
+          success: false,
+          message: 'An unexpected error occured. Error code: 956',
+        };
+      }
+      const isExpired = await this.isTokenExpired(token);
+      return {
+        success: !isExpired,
+        message: isExpired
+          ? 'An unexpected error occured. Error code: 956.'
+          : '',
+      };
+    } catch (e) {
+      return {
+        success: false,
+        message: 'An unexpected error occured. Error code: 956',
+      };
+    }
   };
 
   // Method to check if a token is expired
-  isTokenExpired = token => {
-    const decoded = decode(token);
-    return decoded.exp < Date.now() / 1000;
+  isTokenExpired = async token => {
+    // First, check if the token is not null or undefined
+    if (!token) {
+      return true;
+    }
+    try {
+      // Proceed with decoding if the token exists
+      const decoded = decode(token);
+      if (decoded.exp < Date.now() / 1000) {
+        await AsyncStorage.removeItem('id_token');
+        return true; // Token is expired
+      }
+      return false; // Token is not expired
+    } catch (e) {
+      return true;
+    }
   };
 
   // Method to get the token from secure storage
   getToken = async () => {
     try {
       const token = await AsyncStorage.getItem('id_token');
-      return token;
+
+      return token || null;
     } catch (error) {
-      console.error('Error getting token from secure storage:', error);
+      return null;
     }
   };
 
@@ -37,10 +69,12 @@ class AuthService {
   login = async idToken => {
     try {
       await AsyncStorage.setItem('id_token', idToken);
-      // Navigate to the home screen using React Navigation or similar
-      //TODO:
+      return {success: true, message: ''};
     } catch (error) {
-      console.error('Error setting token in secure storage:', error);
+      return {
+        success: false,
+        message: 'An unexpected error occured. Error code: 1492.',
+      };
     }
   };
 
@@ -48,9 +82,12 @@ class AuthService {
   logout = async () => {
     try {
       await AsyncStorage.removeItem('id_token');
-      // TODO: Navigate to the login screen
+      return {success: true, message: ''};
     } catch (error) {
-      console.error('Error removing token from secure storage:', error);
+      return {
+        success: false,
+        message: 'An unexpected error occured. Error code: 1776.',
+      };
     }
   };
 }

@@ -1,35 +1,90 @@
 import React, {useState} from 'react';
+import {useMutation} from '@apollo/client';
+import {CREATE_USER} from '../utils/mutations';
+import Auth from '../utils/auth';
 import {
   Text,
   View,
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from 'react-native';
 import {ScrollView, TouchableHighlight} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const SignUpForm = ({toggleScreen}) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastname] = useState('');
-  const [email, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+const SignUpForm = ({toggleScreen, navigation}) => {
+  const [userInput, setUserInput] = useState({
+    firstname: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
 
-  const handleSignUp = () => {
-    // handle login here
-    console.log(email, password);
+  const [createUser, {error}] = useMutation(CREATE_USER);
+
+  //function with regex to check if email is in valid format
+  const isValidEmail = email => {
+    const re = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+    return re.test(String(email));
   };
 
+  // Update your function to accept both the field name and value
+  const handleInputChange = (name, value) => {
+    let newValue = value;
+
+    if (name === 'email') {
+      newValue = value.toLowerCase();
+    }
+
+    setUserInput({
+      ...userInput,
+      [name]: newValue,
+    });
+  };
+
+  const handleSignUp = async () => {
+    try {
+      //check if the username is greater than 23 characters
+      if (userInput.firstName.length > 23) {
+        console.log(false);
+        return;
+      }
+      if (userInput.lastName.length > 23) {
+        console.log(false);
+        return;
+      }
+      //check if new passwords match
+      if (userInput.confirmpassword !== userInput.password) {
+        console.log(true);
+        return;
+      }
+      //check if email is in a valid format
+      if (!isValidEmail(userInput.email)) {
+        console.log(false);
+        return;
+      }
+      const {data} = await createUser({
+        variables: {
+          firstName: userInput.firstName,
+          lastName: userInput.lastName,
+          email: userInput.email,
+          password: userInput.password,
+        },
+      });
+      if (data.createUser.token) {
+        Auth.login(data.createUser.token);
+        navigation.navigation('ReturnHome');
+      }
+    } catch (e) {
+      Alert.alert('Sign Up Error');
+    }
+  };
+  console.log(userInput);
+
   return (
-    <ScrollView
-      style={{}}
-      contentContainerStyle={{
-        alignItems: 'center',
-        margin: 0,
-        padding: 0,
-        height: 700,
-      }}>
+    <ScrollView contentContainerStyle={styles.contentcontainer}>
       <View style={styles.form}>
         <Text style={styles.title}>Sign Up</Text>
 
@@ -41,8 +96,8 @@ const SignUpForm = ({toggleScreen}) => {
             </View>
             <TextInput
               style={styles.input}
-              value={firstName}
-              onChangeText={setFirstName}
+              value={userInput.firstName}
+              onChangeText={value => handleInputChange('firstName', value)}
               maxLength={26}
               selectTextOnFocus={false}
             />
@@ -55,8 +110,8 @@ const SignUpForm = ({toggleScreen}) => {
             </View>
             <TextInput
               style={styles.input}
-              value={lastName}
-              onChangeText={setLastname}
+              value={userInput.lastName}
+              onChangeText={value => handleInputChange('lastName', value)}
               maxLength={26}
               selectTextOnFocus={false}
             />
@@ -69,8 +124,8 @@ const SignUpForm = ({toggleScreen}) => {
         </View>
         <TextInput
           style={styles.input}
-          value={email}
-          onChangeText={setUsername}
+          value={userInput.email}
+          onChangeText={value => handleInputChange('email', value)}
           autoComplete="email"
           maxLength={50}
           selectTextOnFocus={false}
@@ -82,8 +137,8 @@ const SignUpForm = ({toggleScreen}) => {
         </View>
         <TextInput
           style={styles.input}
-          value={password}
-          onChangeText={setPassword}
+          value={userInput.password}
+          onChangeText={value => handleInputChange('password', value)}
           maxLength={16}
           secureTextEntry
         />
@@ -94,8 +149,8 @@ const SignUpForm = ({toggleScreen}) => {
         </View>
         <TextInput
           style={styles.input}
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
+          value={userInput.confirmPassword}
+          onChangeText={value => handleInputChange('confirmPassword', value)}
           maxLength={16}
           selectTextOnFocus={false}
           secureTextEntry
@@ -119,6 +174,7 @@ const SignUpForm = ({toggleScreen}) => {
 };
 
 const styles = StyleSheet.create({
+  contentcontainer: {alignItems: 'center', margin: 0, padding: 0, height: 700},
   form: {
     width: '90%',
     paddingBottom: 100,
