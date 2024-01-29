@@ -47,6 +47,12 @@ const LoginForm = ({
         return;
       }
 
+      if (userInput.password.length === 0) {
+        setErrorMessage('Please enter a password.');
+        openSnackBar();
+        return;
+      }
+
       const response = await loginFunc(lce, userInput.password);
 
       if (!response) {
@@ -58,7 +64,7 @@ const LoginForm = ({
       navigation.navigate('ReturnHome');
       return;
     } catch (e) {
-      setErrorMessage(e.message);
+      setErrorMessage(error.message);
       openSnackBar();
     }
   };
