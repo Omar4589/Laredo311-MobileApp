@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   View,
@@ -6,8 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import {useAuthContext} from '../utils/AuthContext';
-import Auth from '../utils/auth'; // Adjust the import path as needed
+import {useAuthContext} from '../utils/authContext';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -17,7 +16,7 @@ const LoginForm = ({
   setErrorMessage,
   setShowSnackBar,
 }) => {
-  const {loginFunc, error, isLoggedIn} = useAuthContext();
+  const {loginFunc, error} = useAuthContext();
 
   const [userInput, setUserInput] = useState({
     email: '',
@@ -39,7 +38,6 @@ const LoginForm = ({
 
   const handleLogin = async () => {
     try {
-      console.log('check 1');
       const lce = userInput.email.toLowerCase();
 
       //check if email is in a valid format
@@ -48,20 +46,25 @@ const LoginForm = ({
         openSnackBar();
         return;
       }
-      console.log('check 2');
+
+      if (userInput.password.length === 0) {
+        setErrorMessage('Please enter a password.');
+        openSnackBar();
+        return;
+      }
+
       const response = await loginFunc(lce, userInput.password);
-      console.log('check 3');
-      console.log(response);
+
       if (!response) {
         setErrorMessage(error.message);
         openSnackBar();
         return;
       }
-      console.log('check 4');
+      console.log('you just logged in');
       navigation.navigate('ReturnHome');
       return;
     } catch (e) {
-      setErrorMessage(e.message);
+      setErrorMessage(error.message);
       openSnackBar();
     }
   };
