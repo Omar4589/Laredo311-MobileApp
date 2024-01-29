@@ -4,8 +4,10 @@ import MyRequestsScreen from '../screens/MyRequestsScreen';
 import MyAccountScreen from '../screens/MyAccountScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useNavigation, DrawerActions} from '@react-navigation/native';
-
+import {Text} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const Tab = createBottomTabNavigator();
 
@@ -21,7 +23,12 @@ const useDrawerNavigation = () => {
 };
 
 // Function to generate tab options
-const createTabOptions = (iconNameFocused, iconNameUnfocused, iconLibrary) => ({
+const createTabOptions = (
+  iconNameFocused,
+  iconNameUnfocused,
+  iconLibrary,
+  navigation,
+) => ({
   tabBarIcon: ({focused}) => (
     <TabIcon
       name={focused ? iconNameFocused : iconNameUnfocused}
@@ -32,7 +39,31 @@ const createTabOptions = (iconNameFocused, iconNameUnfocused, iconLibrary) => ({
   ),
   tabBarInactiveTintColor: '#f1f5f9',
   tabBarActiveTintColor: '#f1f5f9',
-  headerShown: false,
+  headerShown: true,
+  headerTitle: '',
+  headerStyle: {
+    backgroundColor: '#2563eb',
+  },
+  headerLeft: () => (
+    <Text
+      style={{
+        marginLeft: 20,
+        fontFamily: 'Exo-BoldItalic',
+        fontSize: 25,
+        color: '#f1f5f9',
+      }}>
+      Laredo311
+    </Text>
+  ),
+  headerRight: () => (
+    <TouchableOpacity
+      onPress={() => console.log('you pressed the button')}
+      title="Open Menu"
+      color="#000" // Change as per your theme
+      style={{marginRight: 20}}>
+      <MaterialCommunityIcons name="bell-outline" size={30} color="#f1f5f9" />
+    </TouchableOpacity>
+  ),
   tabBarInactiveBackgroundColor: '#2563eb', // Set your desired background color
   tabBarActiveBackgroundColor: '#2563eb', // Optionally, set a different color for active tabs
 });
@@ -48,7 +79,7 @@ const BottomTabs = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        options={createTabOptions('home', 'home-outline', Ionicons)}
+        options={createTabOptions('home', 'home-outline', Ionicons, navigation)}
         name="Home"
         component={HomeScreen}
       />
