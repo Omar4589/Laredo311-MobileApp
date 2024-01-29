@@ -10,8 +10,7 @@ import {
 } from '@apollo/client';
 import {StatusBar} from 'react-native';
 import Navigation from './src/navigation/Navigation';
-import {AuthProvider} from './src/utils/AuthContext';
-
+import { AuthProvider } from './src/utils/authContext';
 const httpLink = createHttpLink({
   uri: 'http://localhost:3001/graphql',
 });

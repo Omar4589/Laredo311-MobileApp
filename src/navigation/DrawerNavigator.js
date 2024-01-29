@@ -1,11 +1,10 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import Auth from '../utils/auth';
 
+import {useAuthContext} from '../utils/authContext';
 import BottomTabs from './BottomTabsNavigator';
 import LoginScreen from '../screens/LoginScreen';
 import {useNavigation} from '@react-navigation/native';
-import {useAuthContext} from '../utils/AuthContext';
 
 const Drawer = createDrawerNavigator();
 

@@ -1,7 +1,8 @@
-import React, {useState, useEffect, useContext, createContext} from 'react';
+import React, {useState, useContext, createContext} from 'react';
 import {LOGIN_USER} from './mutations';
 import {useMutation} from '@apollo/client';
-import Auth from '../utils/auth';
+import Auth from './auth';
+
 const AuthContext = createContext();
 
 export const useAuthContext = () => useContext(AuthContext);

@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import {useAuthContext} from '../utils/authContext';
+import {useAuthContext} from '../utils/AuthContext';
 import Auth from '../utils/auth'; // Adjust the import path as needed
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
