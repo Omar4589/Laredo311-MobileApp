@@ -1,10 +1,12 @@
 import React from 'react';
 import {SafeAreaView, View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import MyAlertsBox from '../components/MyAlertsBox';
 
 const Home = () => {
   return (
     <SafeAreaView>
+      <MyAlertsBox />
       <View style={{flexDirection: 'column', alignItems: 'center'}}>
         <Text style={{textAlign: 'center'}}>
           Lorem Ipsum is simply dummy text of the printing and typesetting

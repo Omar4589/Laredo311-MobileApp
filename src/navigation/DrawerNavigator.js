@@ -7,6 +7,7 @@ import LoginScreen from '../screens/LoginScreen';
 import MyRequestsScreen from '../screens/MyRequestsScreen';
 import MyAccountScreen from '../screens/MyAccountScreen';
 import {useNavigation} from '@react-navigation/native';
+import MyAlertsBox from '../components/MyAlertsBox';
 
 const Drawer = createDrawerNavigator();
 
@@ -83,6 +84,12 @@ const AppDrawerNavigator = ({}) => {
             }
           },
         }}
+      />
+
+      <Drawer.Screen
+        name="My Alerts"
+        component={MyAlertsBox}
+        options={{headerShown: false}}
       />
     </Drawer.Navigator>
   );

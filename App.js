@@ -10,7 +10,8 @@ import {
 } from '@apollo/client';
 import {StatusBar} from 'react-native';
 import Navigation from './src/navigation/Navigation';
-import { AuthProvider } from './src/utils/authContext';
+import {AuthProvider} from './src/utils/authContext';
+import {AlertsProvider} from './src/utils/alertsBoxContext';
 const httpLink = createHttpLink({
   uri: 'http://localhost:3001/graphql',
 });
@@ -39,8 +40,10 @@ function App() {
     <>
       <ApolloProvider client={client}>
         <AuthProvider>
-          <StatusBar />
-          <Navigation />
+          <AlertsProvider>
+            <StatusBar />
+            <Navigation />
+          </AlertsProvider>
         </AuthProvider>
       </ApolloProvider>
     </>

@@ -8,8 +8,14 @@ import {Text} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import LoginForm from '../components/LoginForm';
+import MyAlertsBox from '../components/MyAlertsBox';
+import {useAlertsContext} from '../utils/alertsBoxContext';
 
 const Tab = createBottomTabNavigator();
+
+const Stack = createNativeStackNavigator();
 
 const useDrawerNavigation = () => {
   const navigation = useNavigation();
@@ -28,6 +34,7 @@ const createTabOptions = (
   iconNameUnfocused,
   iconLibrary,
   navigation,
+  toggleAlertsBox,
 ) => ({
   tabBarIcon: ({focused}) => (
     <TabIcon
@@ -57,7 +64,7 @@ const createTabOptions = (
   ),
   headerRight: () => (
     <TouchableOpacity
-      onPress={() => console.log('you pressed the button')}
+      onPress={() => toggleAlertsBox()}
       title="Open Menu"
       color="#000" // Change as per your theme
       style={{marginRight: 20}}>
@@ -75,11 +82,18 @@ const TabIcon = ({name, library, color, size}) => {
 };
 
 const BottomTabs = () => {
+  const {toggleAlertsBox} = useAlertsContext();
   const navigation = useDrawerNavigation();
   return (
     <Tab.Navigator>
       <Tab.Screen
-        options={createTabOptions('home', 'home-outline', Ionicons, navigation)}
+        options={createTabOptions(
+          'home',
+          'home-outline',
+          Ionicons,
+          navigation,
+          toggleAlertsBox,
+        )}
         name="Home"
         component={HomeScreen}
       />
@@ -88,17 +102,31 @@ const BottomTabs = () => {
           'file-tray-full',
           'file-tray-full-outline',
           Ionicons,
+          navigation,
+          toggleAlertsBox,
         )}
         name="My Requests"
         component={MyRequestsScreen}
       />
       <Tab.Screen
-        options={createTabOptions('person', 'person-outline', Ionicons)}
+        options={createTabOptions(
+          'person',
+          'person-outline',
+          Ionicons,
+          navigation,
+          toggleAlertsBox,
+        )}
         name="My Account"
         component={MyAccountScreen}
       />
       <Tab.Screen
-        options={createTabOptions('menu', 'menu-outline', Ionicons)}
+        options={createTabOptions(
+          'menu',
+          'menu-outline',
+          Ionicons,
+          navigation,
+          toggleAlertsBox,
+        )}
         name="Menu"
         component={HomeScreen} //setting this component has no effect here
         listeners={{
