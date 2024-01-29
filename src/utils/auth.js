@@ -22,7 +22,7 @@ class AuthService {
       }
       const isExpired = await this.isTokenExpired(token);
       return {
-        success: !isExpired, //returns true
+        success: !isExpired, //returns false
         message: isExpired
           ? 'An unexpected error occured. Error code: 956.'
           : '',

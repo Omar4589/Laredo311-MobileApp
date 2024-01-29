@@ -3,18 +3,18 @@ import {SafeAreaView, Text, StyleSheet} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native'; //this hook runs everytime the screen comes into focus
 import LoginForm from '../components/LoginForm';
 import SignUpForm from '../components/SignUpForm';
-import Auth from '../utils/auth';
+import { useAuthContext } from '../utils/authContext';
 import SnackBar from '../components/SnackBarComponent/SnackBar';
 
 const LoginScreen = ({navigation}) => {
+  const {isLoggedIn} = useAuthContext;
   const [screen, setscreen] = useState('login');
   const [errorMessage, setErrorMessage] = useState('');
   const [showSnackBar, setShowSnackBar] = useState(false);
 
   useFocusEffect(() => {
     const checkAuthStatus = async () => {
-      const authStatus = await Auth.loggedIn();
-      if (authStatus.success) {
+      if (isLoggedIn) {
         navigation.navigate('ReturnHome');
       }
     };
