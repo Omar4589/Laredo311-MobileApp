@@ -30,19 +30,31 @@ const AppDrawerNavigator = ({}) => {
           drawerLabel: 'Home',
         }}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="My Requests"
         component={BottomTabs}
         options={{headerShown: false}}
+        listeners={{
+          drawerItemPress: e => {
+            e.preventDefault(); // Prevent default action
+            navigation.navigate('My Requests');
+          },
+        }}
       />
       <Drawer.Screen
         name="My Account"
-        component={MyRequestsScreen}
+        component={BottomTabs}
         options={{headerShown: false}}
-      />
+        listeners={{
+          drawerItemPress: e => {
+            e.preventDefault(); // Prevent default action
+            navigation.navigate('My Account');
+          },
+        }}
+      /> */}
       <Drawer.Screen
         name="About"
-        component={MyAccountScreen}
+        component={BottomTabs}
         options={{headerShown: false}}
       />
       <Drawer.Screen
