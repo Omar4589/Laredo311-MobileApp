@@ -10,7 +10,6 @@ const Drawer = createDrawerNavigator();
 
 const AppDrawerNavigator = ({}) => {
   const {isLoggedIn, logoutFunc} = useAuthContext();
-  console.log({isLoggedIn, logoutFunc});
   const navigation = useNavigation();
   return (
     <Drawer.Navigator
@@ -53,6 +52,7 @@ const AppDrawerNavigator = ({}) => {
               ev.preventDefault;
               try {
                 await logoutFunc();
+                console.log('You just logged out');
                 navigation.navigate('ReturnHome');
               } catch (e) {
                 console.log(e); // Or handle the error more visibly

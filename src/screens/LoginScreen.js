@@ -3,7 +3,7 @@ import {SafeAreaView, Text, StyleSheet} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native'; //this hook runs everytime the screen comes into focus
 import LoginForm from '../components/LoginForm';
 import SignUpForm from '../components/SignUpForm';
-import { useAuthContext } from '../utils/authContext';
+import {useAuthContext} from '../utils/authContext';
 import SnackBar from '../components/SnackBarComponent/SnackBar';
 
 const LoginScreen = ({navigation}) => {
