@@ -4,6 +4,8 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import {useAuthContext} from '../utils/authContext';
 import BottomTabs from './BottomTabsNavigator';
 import LoginScreen from '../screens/LoginScreen';
+import MyRequestsScreen from '../screens/MyRequestsScreen';
+import MyAccountScreen from '../screens/MyAccountScreen';
 import {useNavigation} from '@react-navigation/native';
 
 const Drawer = createDrawerNavigator();
@@ -28,10 +30,19 @@ const AppDrawerNavigator = ({}) => {
           drawerLabel: 'Home',
         }}
       />
-
+      <Drawer.Screen
+        name="My Requests"
+        component={BottomTabs}
+        options={{headerShown: false}}
+      />
+      <Drawer.Screen
+        name="My Account"
+        component={MyRequestsScreen}
+        options={{headerShown: false}}
+      />
       <Drawer.Screen
         name="About"
-        component={BottomTabs}
+        component={MyAccountScreen}
         options={{headerShown: false}}
       />
       <Drawer.Screen
