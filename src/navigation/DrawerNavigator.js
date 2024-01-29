@@ -1,12 +1,18 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import Auth from '../utils/auth';
 
 import BottomTabs from './BottomTabsNavigator';
 import LoginScreen from '../screens/LoginScreen';
+import {useNavigation} from '@react-navigation/native';
+import {useAuthContext} from '../utils/AuthContext';
 
 const Drawer = createDrawerNavigator();
 
-const AppDrawerNavigator = () => {
+const AppDrawerNavigator = ({}) => {
+  const {isLoggedIn, logoutFunc} = useAuthContext();
+  console.log({isLoggedIn, logoutFunc});
+  const navigation = useNavigation();
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -36,9 +42,25 @@ const AppDrawerNavigator = () => {
         options={{headerShown: false}}
       />
       <Drawer.Screen
-        name="Login / Sign Up"
+        name="LoginSignUp"
         component={LoginScreen}
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+          drawerLabel: isLoggedIn ? 'Logout' : 'Login / Sign Up',
+        }}
+        listeners={{
+          drawerItemPress: async ev => {
+            if (isLoggedIn) {
+              ev.preventDefault;
+              try {
+                await logoutFunc();
+                navigation.navigate('ReturnHome');
+              } catch (e) {
+                console.log(e); // Or handle the error more visibly
+              }
+            }
+          },
+        }}
       />
     </Drawer.Navigator>
   );
