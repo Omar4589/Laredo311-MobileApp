@@ -1,8 +1,8 @@
 import React, {useState, useContext, createContext} from 'react';
 
-const alertsContext = createContext();
+const AlertsContext = createContext();
 
-export const useAlertsContext = () => useContext(alertsContext);
+export const useAlertsContext = () => useContext(AlertsContext);
 
 export const AlertsProvider = ({children}) => {
   const [showAlertsBox, setShowAlertsBox] = useState(false);
@@ -12,9 +12,9 @@ export const AlertsProvider = ({children}) => {
   };
 
   return (
-    <alertsContext.Provider
+    <AlertsContext.Provider
       value={{showAlertsBox, setShowAlertsBox, toggleAlertsBox}}>
       {children}
-    </alertsContext.Provider>
+    </AlertsContext.Provider>
   );
 };

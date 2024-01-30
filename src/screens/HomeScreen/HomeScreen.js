@@ -1,35 +1,21 @@
 import React from 'react';
 import {SafeAreaView, View, Text, TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import MyAlertsBox from '../components/MyAlertsBox';
+import MyAlertsBox from '../../components/MyAlertsBoxComponent/MyAlertsBox';
+import styles from './styles';
 
 const Home = () => {
   return (
     <SafeAreaView>
       <MyAlertsBox />
-      <View style={{flexDirection: 'column', alignItems: 'center'}}>
+      <View style={styles.container}>
         <Text style={{textAlign: 'center'}}>
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and
           scrambled it to make a type specimen book.
         </Text>
-        <TouchableOpacity
-          style={{
-            backgroundColor: '#2563eb',
-            padding: 15,
-            borderRadius: 6,
-            width: '50%',
-          }}>
-          <Text
-            style={{
-              fontSize: 15,
-              textAlign: 'center',
-              color: 'white',
-              fontWeight: 'bold',
-            }}>
-            Submit A Request
-          </Text>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Submit A Request</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

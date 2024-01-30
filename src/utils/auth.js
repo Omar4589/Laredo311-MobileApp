@@ -1,8 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// Import the decode function from the "jwt-decode" library
 import decode from 'jwt-decode';
 
-// Define a class named AuthService to manage authentication-related functionality
 class AuthService {
   // Method to get user profile information from the JWT token
   getProfile = async () => {
@@ -35,14 +33,12 @@ class AuthService {
     }
   };
 
-  // Method to check if a token is expired
   isTokenExpired = async token => {
     // First, check if the token is not null or undefined
     if (!token) {
       return true;
     }
     try {
-      // Proceed with decoding if the token exists
       const decoded = decode(token);
       if (decoded.exp < Date.now() / 1000) {
         await AsyncStorage.removeItem('id_token');
@@ -54,7 +50,6 @@ class AuthService {
     }
   };
 
-  // Method to get the token from secure storage
   getToken = async () => {
     try {
       const token = await AsyncStorage.getItem('id_token');
@@ -65,7 +60,6 @@ class AuthService {
     }
   };
 
-  // Method to log in the user
   login = async idToken => {
     try {
       await AsyncStorage.setItem('id_token', idToken);
@@ -78,7 +72,6 @@ class AuthService {
     }
   };
 
-  // Method to log out the user
   logout = async () => {
     try {
       await AsyncStorage.removeItem('id_token');
@@ -92,5 +85,4 @@ class AuthService {
   };
 }
 
-// Export an instance of the AuthService class
 export default new AuthService();

@@ -1,17 +1,17 @@
 import React from 'react';
 import {SafeAreaView, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import MyAlertsBox from '../components/MyAlertsBox';
+import MyAlertsBox from '../../components/MyAlertsBoxComponent/MyAlertsBox';
 
-const MyRequests = () => {
+const MyAccount = () => {
   return (
     <SafeAreaView>
       <MyAlertsBox />
       <Text>
-        View your requests here <Icon name="home" size={15} color="#000000" />
+        My Account below <Icon name="home" size={15} color="#000000" />
       </Text>
     </SafeAreaView>
   );
 };
 
-export default MyRequests;
+export default MyAccount;

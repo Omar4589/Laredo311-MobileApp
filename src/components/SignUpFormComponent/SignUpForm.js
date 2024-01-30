@@ -5,14 +5,13 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Alert,
 } from 'react-native';
-import {useMutation} from '@apollo/client';
-import {CREATE_USER} from '../utils/mutations';
-import Auth from '../utils/auth';
 import {ScrollView, TouchableHighlight} from 'react-native-gesture-handler';
-import SnackBar from './SnackBarComponent/SnackBar';
+import {useMutation} from '@apollo/client';
+import {CREATE_USER} from '../../utils/mutations';
+import Auth from '../../utils/auth';
 import Icon from 'react-native-vector-icons/Ionicons';
+import styles from './styles';
 
 const SignUpForm = ({
   toggleScreen,
@@ -20,6 +19,7 @@ const SignUpForm = ({
   setErrorMessage,
   setShowSnackBar,
 }) => {
+  //form state
   const [userInput, setUserInput] = useState({
     firstName: '',
     lastName: '',
@@ -160,7 +160,7 @@ const SignUpForm = ({
           style={styles.input}
           value={userInput.password}
           onChangeText={value => handleInputChange('password', value)}
-          maxLength={16}
+          maxLength={32}
           secureTextEntry
         />
 
@@ -172,7 +172,7 @@ const SignUpForm = ({
           style={styles.input}
           value={userInput.confirmPassword}
           onChangeText={value => handleInputChange('confirmPassword', value)}
-          maxLength={16}
+          maxLength={32}
           selectTextOnFocus={false}
           secureTextEntry
         />
@@ -193,63 +193,5 @@ const SignUpForm = ({
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  contentcontainer: {alignItems: 'center', margin: 0, padding: 0, height: 700},
-  form: {
-    width: '90%',
-    paddingBottom: 100,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 30,
-    marginLeft: 5,
-  },
-  labels: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginBottom: 6,
-    alignItems: 'center',
-  },
-  labelsText: {
-    fontSize: 10,
-    marginLeft: 5,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ddd',
-    padding: 10,
-    marginBottom: 20,
-    borderRadius: 6,
-  },
-  namesView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-  names: {width: '45%'},
-  button: {
-    backgroundColor: '#2563eb',
-    padding: 15,
-    borderRadius: 6,
-  },
-  buttonText: {
-    fontSize: 15,
-    textAlign: 'center',
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  highlight: {borderRadius: 5},
-  signupView: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 25,
-    justifyContent: 'center',
-  },
-  signupText: {
-    color: '#2563eb',
-  },
-});
 
 export default SignUpForm;
