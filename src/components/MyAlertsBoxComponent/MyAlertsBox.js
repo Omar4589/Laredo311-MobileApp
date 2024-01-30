@@ -33,7 +33,7 @@ const MyAlertsBox = alerts => {
           <View>
             <ScrollView>
               {a.map(alert => (
-                <Alert key={a.number} alert={alert} />
+                <Alert key={alert.number} alert={alert} />
               ))}
             </ScrollView>
           </View>
