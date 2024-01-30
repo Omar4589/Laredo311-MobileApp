@@ -1,10 +1,10 @@
 import React from 'react';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-
-import {useAuthContext} from '../utils/authContext';
-import BottomTabs from './BottomTabsNavigator';
-import LoginScreen from '../screens/LoginScreen';
 import {useNavigation} from '@react-navigation/native';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {useAuthContext} from '../../contexts/AuthContext';
+import BottomTabsNavigator from '../BottomTabsNavigator/BottomTabsNavigator';
+import LoginScreen from '../../screens/LoginScreen/LoginScreen';
+import MyAlertsBox from '../../components/MyAlertsBoxComponent/MyAlertsBox';
 
 const Drawer = createDrawerNavigator();
 
@@ -21,7 +21,7 @@ const AppDrawerNavigator = ({}) => {
       }}>
       <Drawer.Screen
         name="ReturnHome"
-        component={BottomTabs}
+        component={BottomTabsNavigator}
         options={{
           headerShown: false,
           drawerItemStyle: {},
@@ -31,14 +31,16 @@ const AppDrawerNavigator = ({}) => {
 
       <Drawer.Screen
         name="About"
-        component={BottomTabs}
+        component={BottomTabsNavigator}
         options={{headerShown: false}}
       />
+
       <Drawer.Screen
         name="Contact Us"
-        component={BottomTabs}
+        component={BottomTabsNavigator}
         options={{headerShown: false}}
       />
+
       <Drawer.Screen
         name="LoginSignUp"
         component={LoginScreen}
@@ -60,6 +62,12 @@ const AppDrawerNavigator = ({}) => {
             }
           },
         }}
+      />
+
+      <Drawer.Screen
+        name="My Alerts"
+        component={MyAlertsBox}
+        options={{headerShown: false}}
       />
     </Drawer.Navigator>
   );

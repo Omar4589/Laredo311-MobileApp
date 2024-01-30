@@ -1,16 +1,18 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import {setContext} from '@apollo/client/link/context';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
 } from '@apollo/client';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StatusBar} from 'react-native';
-import Navigation from './src/navigation/Navigation';
-import { AuthProvider } from './src/utils/authContext';
+import {NavigationContainer} from '@react-navigation/native';
+import DrawerNavigator from './src/navigators/DrawerNavigator/DrawerNavigator';
+import {AuthProvider} from './src/contexts/AuthContext';
+import {AlertsProvider} from './src/contexts/AlertsContext';
 const httpLink = createHttpLink({
   uri: 'http://localhost:3001/graphql',
 });
@@ -36,14 +38,16 @@ const client = new ApolloClient({
 
 function App() {
   return (
-    <>
-      <ApolloProvider client={client}>
-        <AuthProvider>
+    <ApolloProvider client={client}>
+      <AuthProvider>
+        <AlertsProvider>
           <StatusBar />
-          <Navigation />
-        </AuthProvider>
-      </ApolloProvider>
-    </>
+          <NavigationContainer>
+            <DrawerNavigator />
+          </NavigationContainer>
+        </AlertsProvider>
+      </AuthProvider>
+    </ApolloProvider>
   );
 }
 

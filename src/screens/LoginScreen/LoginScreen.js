@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import {SafeAreaView, Text, StyleSheet} from 'react-native';
+import {SafeAreaView, Text} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native'; //this hook runs everytime the screen comes into focus
-import LoginForm from '../components/LoginForm';
-import SignUpForm from '../components/SignUpForm';
-import {useAuthContext} from '../utils/authContext';
-import SnackBar from '../components/SnackBarComponent/SnackBar';
+import {useAuthContext} from '../../contexts/AuthContext';
+import LoginForm from '../../components/LoginFormComponent/LoginForm';
+import SignUpForm from '../../components/SignUpFormComponent/SignUpForm';
+import SnackBar from '../../components/SnackBarComponent/SnackBar';
+import styles from './styles';
 
 const LoginScreen = ({navigation}) => {
   const {isLoggedIn} = useAuthContext;
@@ -50,24 +51,5 @@ const LoginScreen = ({navigation}) => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  laredo311: {
-    fontSize: 35,
-    marginBottom: 70,
-    fontFamily: 'Exo-BoldItalic',
-  },
-  laredo311Signup: {
-    marginTop: 92,
-    fontSize: 35,
-    marginBottom: 50,
-    fontFamily: 'Exo-BoldItalic',
-  },
-});
 
 export default LoginScreen;
