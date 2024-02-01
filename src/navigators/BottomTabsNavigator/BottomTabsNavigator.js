@@ -1,8 +1,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeStack from '../HomeStackNavigator/HomeStack';
-import HomeScreen from '../../screens/HomeScreen/HomeScreen';
-import MyRequestsScreen from '../../screens/MyRequestsScreen/MyRequestsScreen';
+import MyRequestsStack from '../MyRequestsStackNavigator.js/MyRequestsStack';
 import MyAccountScreen from '../../screens/MyAccountScreen/MyAccountScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useAlertsContext} from '../../contexts/AlertsContext';
@@ -38,7 +37,7 @@ const BottomTabs = () => {
           toggleAlertsBox,
         )}
         name="My Requests"
-        component={MyRequestsScreen}
+        component={MyRequestsStack}
       />
 
       <Tab.Screen
@@ -62,7 +61,7 @@ const BottomTabs = () => {
           toggleAlertsBox,
         )}
         name="Menu"
-        component={HomeScreen} //setting this component has no effect here because we have prevent default below
+        component={HomeStack} //setting this component has no effect here because we have prevent default below
         listeners={{
           tabPress: e => {
             // Prevent default action
