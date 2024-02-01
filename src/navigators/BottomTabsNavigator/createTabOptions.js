@@ -36,6 +36,7 @@ const createTabOptions = (
       <MaterialCommunityIcons name="bell-outline" size={30} color="#f1f5f9" />
     </TouchableOpacity>
   ),
+  tabBarStyle: {backgroundColor: '#2563eb'},
   tabBarInactiveBackgroundColor: '#2563eb', // Set your desired background color
   tabBarActiveBackgroundColor: '#2563eb', // Optionally, set a different color for active tabs
 });
