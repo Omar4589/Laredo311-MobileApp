@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   headerText: {
     marginLeft: 20,
     fontFamily: 'Exo-BoldItalic',
-    fontSize: 25,
+    fontSize: 30,
     color: '#f1f5f9',
   },
   bellIcon: {marginRight: 20},
