@@ -16,7 +16,7 @@ const createTabOptions = (
       name={focused ? iconNameFocused : iconNameUnfocused}
       library={iconLibrary}
       color={focused ? '#f1f5f9' : '#f1f5f9'}
-      size={focused ? 30 : 25}
+      size={iconNameFocused === 'menu-outline' ? 30 : 25}
     />
   ),
   tabBarInactiveTintColor: '#f1f5f9',
@@ -36,18 +36,20 @@ const createTabOptions = (
       <MaterialCommunityIcons name="bell-outline" size={30} color="#f1f5f9" />
     </TouchableOpacity>
   ),
+  tabBarStyle: {backgroundColor: '#2563eb'},
   tabBarInactiveBackgroundColor: '#2563eb', // Set your desired background color
   tabBarActiveBackgroundColor: '#2563eb', // Optionally, set a different color for active tabs
 });
 
 const styles = StyleSheet.create({
   headerText: {
-    marginLeft: 20,
+    marginLeft: 15,
     fontFamily: 'Exo-BoldItalic',
-    fontSize: 25,
+    fontSize: 30,
     color: '#f1f5f9',
+    // lineHeight:55
   },
-  bellIcon: {marginRight: 20},
+  bellIcon: {marginRight: 15, paddingBottom: 5},
 });
 
 export default createTabOptions;

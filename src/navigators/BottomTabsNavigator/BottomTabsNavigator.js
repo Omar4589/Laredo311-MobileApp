@@ -1,18 +1,18 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import useDrawerNavigation from './userDrawerNavigation';
 import HomeScreen from '../../screens/HomeScreen/HomeScreen';
 import MyRequestsScreen from '../../screens/MyRequestsScreen/MyRequestsScreen';
 import MyAccountScreen from '../../screens/MyAccountScreen/MyAccountScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useAlertsContext} from '../../contexts/AlertsContext';
 import createTabOptions from './createTabOptions';
+import {useNavigation, DrawerActions} from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabs = () => {
   const {toggleAlertsBox} = useAlertsContext();
-  const navigation = useDrawerNavigation();
+  const navigation = useNavigation();
 
   return (
     <Tab.Navigator>
@@ -54,7 +54,7 @@ const BottomTabs = () => {
 
       <Tab.Screen
         options={createTabOptions(
-          'menu',
+          'menu-outline',
           'menu-outline',
           Ionicons,
           navigation,
@@ -67,7 +67,7 @@ const BottomTabs = () => {
             // Prevent default action
             e.preventDefault();
             // Open the drawer
-            navigation.openDrawer();
+            navigation.dispatch(DrawerActions.openDrawer());
           },
         }}
       />
