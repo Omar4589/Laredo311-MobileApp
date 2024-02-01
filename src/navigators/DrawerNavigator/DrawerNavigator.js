@@ -48,13 +48,10 @@ const AppDrawerNavigator = ({}) => {
         options={{
           headerShown: true,
           headerTitle: '',
-          headerLeft: () => {
-            null;
-          },
+          headerShadowVisible: false,
+          headerStyle: {backgroundColor: '#f2f2f2'},
+          headerLeft: () => null,
           headerRight: () => <DrawerIcon />,
-          headerStyle: {
-            backgroundColor: '#f1f5f9',
-          },
           drawerLabel: isLoggedIn ? 'Logout' : 'Login / Sign Up',
         }}
         listeners={{

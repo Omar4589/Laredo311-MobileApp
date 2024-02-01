@@ -8,7 +8,7 @@ import SnackBar from '../../components/SnackBarComponent/SnackBar';
 import styles from './styles';
 
 const LoginScreen = ({navigation}) => {
-  const {isLoggedIn} = useAuthContext;
+  const {isLoggedIn} = useAuthContext();
   const [screen, setscreen] = useState('login');
   const [errorMessage, setErrorMessage] = useState('');
   const [showSnackBar, setShowSnackBar] = useState(false);
