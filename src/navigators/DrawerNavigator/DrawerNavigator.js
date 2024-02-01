@@ -1,17 +1,19 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {useAuthContext} from '../../contexts/AuthContext';
 import BottomTabsNavigator from '../BottomTabsNavigator/BottomTabsNavigator';
 import LoginScreen from '../../screens/LoginScreen/LoginScreen';
 import MyAlertsBox from '../../components/MyAlertsBoxComponent/MyAlertsBox';
-import DrawerIcon from '../../components/DrawerIcon';
+import DrawerIcon from '../../components/DrawerIconComponent.js/DrawerIcon';
 
 const Drawer = createDrawerNavigator();
 
 const AppDrawerNavigator = ({}) => {
   const {isLoggedIn, logoutFunc} = useAuthContext();
   const navigation = useNavigation();
+  const HeaderRight = useCallback(() => <DrawerIcon />);
+
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -51,7 +53,7 @@ const AppDrawerNavigator = ({}) => {
           headerShadowVisible: false,
           headerStyle: {backgroundColor: '#f2f2f2'},
           headerLeft: () => null,
-          headerRight: () => <DrawerIcon />,
+          headerRight: HeaderRight,
           drawerLabel: isLoggedIn ? 'Logout' : 'Login / Sign Up',
         }}
         listeners={{

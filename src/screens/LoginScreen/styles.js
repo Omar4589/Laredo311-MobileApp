@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Exo-BoldItalic',
   },
   laredo311Signup: {
-    marginTop: 92,
+    marginTop: 72,
     fontSize: 35,
     marginBottom: 50,
     fontFamily: 'Exo-BoldItalic',
