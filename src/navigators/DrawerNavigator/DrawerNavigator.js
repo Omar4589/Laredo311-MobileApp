@@ -5,6 +5,7 @@ import {useAuthContext} from '../../contexts/AuthContext';
 import BottomTabsNavigator from '../BottomTabsNavigator/BottomTabsNavigator';
 import LoginScreen from '../../screens/LoginScreen/LoginScreen';
 import MyAlertsBox from '../../components/MyAlertsBoxComponent/MyAlertsBox';
+import DrawerIcon from '../../components/DrawerIcon';
 
 const Drawer = createDrawerNavigator();
 
@@ -45,7 +46,15 @@ const AppDrawerNavigator = ({}) => {
         name="LoginSignUp"
         component={LoginScreen}
         options={{
-          headerShown: false,
+          headerShown: true,
+          headerTitle: '',
+          headerLeft: () => {
+            null;
+          },
+          headerRight: () => <DrawerIcon />,
+          headerStyle: {
+            backgroundColor: '#f1f5f9',
+          },
           drawerLabel: isLoggedIn ? 'Logout' : 'Login / Sign Up',
         }}
         listeners={{
