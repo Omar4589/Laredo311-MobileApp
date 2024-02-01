@@ -16,7 +16,7 @@ const createTabOptions = (
       name={focused ? iconNameFocused : iconNameUnfocused}
       library={iconLibrary}
       color={focused ? '#f1f5f9' : '#f1f5f9'}
-      size={focused ? 30 : 25}
+      size={iconNameFocused === 'menu-outline' ? 30 : 25}
     />
   ),
   tabBarInactiveTintColor: '#f1f5f9',

@@ -54,7 +54,7 @@ const BottomTabs = () => {
 
       <Tab.Screen
         options={createTabOptions(
-          'menu',
+          'menu-outline',
           'menu-outline',
           Ionicons,
           navigation,
