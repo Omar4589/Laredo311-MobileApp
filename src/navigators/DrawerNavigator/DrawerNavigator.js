@@ -20,7 +20,7 @@ const AppDrawerNavigator = ({}) => {
         drawerType: 'front',
       }}>
       <Drawer.Screen
-        name="Home"
+        name="ReturnHome"
         component={BottomTabsNavigator}
         options={{
           headerShown: false,

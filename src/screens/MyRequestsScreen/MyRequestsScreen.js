@@ -3,7 +3,7 @@ import {SafeAreaView, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MyAlertsBox from '../../components/MyAlertsBoxComponent/MyAlertsBox';
 
-const MyRequests = () => {
+const MyRequests = ({navigation}) => {
   return (
     <SafeAreaView>
       <MyAlertsBox />

@@ -43,13 +43,13 @@ const createTabOptions = (
 
 const styles = StyleSheet.create({
   headerText: {
-    marginLeft: 15,
+    marginLeft: 10,
     fontFamily: 'Exo-BoldItalic',
     fontSize: 30,
     color: '#f1f5f9',
     // lineHeight:55
   },
-  bellIcon: {marginRight: 15, paddingBottom: 5},
+  bellIcon: {marginRight: 10, paddingBottom: 5},
 });
 
 export default createTabOptions;
