@@ -1,5 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import HomeStack from '../HomeStackNavigator/HomeStack';
 import HomeScreen from '../../screens/HomeScreen/HomeScreen';
 import MyRequestsScreen from '../../screens/MyRequestsScreen/MyRequestsScreen';
 import MyAccountScreen from '../../screens/MyAccountScreen/MyAccountScreen';
@@ -25,7 +26,7 @@ const BottomTabs = () => {
           toggleAlertsBox,
         )}
         name="Home"
-        component={HomeScreen}
+        component={HomeStack}
       />
 
       <Tab.Screen

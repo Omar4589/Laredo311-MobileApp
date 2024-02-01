@@ -3,7 +3,7 @@ import {SafeAreaView, View, Text, TouchableOpacity} from 'react-native';
 import MyAlertsBox from '../../components/MyAlertsBoxComponent/MyAlertsBox';
 import styles from './styles';
 
-const Home = () => {
+const HomeScreen = ({navigation}) => {
   return (
     <SafeAreaView>
       <MyAlertsBox />
@@ -22,4 +22,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomeScreen;
