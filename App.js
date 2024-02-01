@@ -13,6 +13,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import DrawerNavigator from './src/navigators/DrawerNavigator/DrawerNavigator';
 import {AuthProvider} from './src/contexts/AuthContext';
 import {AlertsProvider} from './src/contexts/AlertsContext';
+
 const httpLink = createHttpLink({
   uri: 'http://localhost:3001/graphql',
 });

@@ -20,7 +20,7 @@ const AppDrawerNavigator = ({}) => {
         drawerType: 'front',
       }}>
       <Drawer.Screen
-        name="ReturnHome"
+        name="Home"
         component={BottomTabsNavigator}
         options={{
           headerShown: false,
@@ -29,17 +29,17 @@ const AppDrawerNavigator = ({}) => {
         }}
       />
 
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="About"
         component={BottomTabsNavigator}
         options={{headerShown: false}}
-      />
+      /> */}
 
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Contact Us"
         component={BottomTabsNavigator}
         options={{headerShown: false}}
-      />
+      /> */}
 
       <Drawer.Screen
         name="LoginSignUp"
@@ -55,7 +55,7 @@ const AppDrawerNavigator = ({}) => {
               try {
                 await logoutFunc();
                 console.log('You just logged out');
-                navigation.navigate('ReturnHome');
+                navigation.navigate('Home');
               } catch (e) {
                 console.log(e); // Or handle the error more visibly
               }
@@ -64,11 +64,11 @@ const AppDrawerNavigator = ({}) => {
         }}
       />
 
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="My Alerts"
         component={MyAlertsBox}
         options={{headerShown: false}}
-      />
+      /> */}
     </Drawer.Navigator>
   );
 };
