@@ -1,8 +1,6 @@
 import React from 'react';
 import {SafeAreaView, Text, View, StyleSheet} from 'react-native';
-import {TouchableHighlight} from 'react-native-gesture-handler';
 import {ScrollView} from 'react-native-gesture-handler';
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import RequestCard from '../../components/RequestCard/RequestCard';
 
 const requests = [
@@ -47,34 +45,37 @@ const requests = [
 const MyRequests = ({navigation}) => {
   return (
     <SafeAreaView>
-      <ScrollView style={styles.scrollView}>
-        <View style={styles.mainContainer}>
-          <View style={styles.totalsContainer}>
-            <View style={styles.totals}>
-              <Text
-                style={{
-                  ...styles.totalstext,
-                }}>
-                Total Requests:
+      <ScrollView className="w-full h-full">
+        <View className="flex-col items-center mt-8">
+          <View className="w-4/5 bg-slate-100 rounded-lg py-5 px-5 shadow-sm shadow-slate-400">
+            <View className="justify-center items-baseline flex-row  ">
+              <Text className="text-base font-semibold ">Total Requests:</Text>
+              <Text className="text-4xl px-2 text-blue-600 font-exoBI ">
+                12
               </Text>
-              <Text style={styles.numbers}>12</Text>
             </View>
 
-            <View style={styles.ActiveAndCompletedContainer}>
-              <View style={styles.totals}>
-                <Text style={styles.totalstext}>Active:</Text>
-                <Text style={styles.numbers}>4</Text>
+            <View className="flex-row justify-between pt-4">
+              <View className="flex-row justify-center items-baseline">
+                <Text className="text-base font-semibold">Active:</Text>
+                <Text className="text-4xl px-2 text-blue-600 font-exoBI">
+                  4
+                </Text>
               </View>
 
-              <View style={styles.totals}>
-                <Text style={styles.totalstext}>Completed:</Text>
-                <Text style={styles.numbers}>8</Text>
+              <View className="flex-row justify-center items-baseline">
+                <Text className="text-base font-semibold">Completed:</Text>
+                <Text className="text-4xl px-2 text-blue-600 font-exoBI">
+                  8
+                </Text>
               </View>
             </View>
           </View>
 
-          <View style={styles.myRequestContainer}>
-            <Text style={styles.title}>My Requests:</Text>
+          <View className="w-full px-4 my-10 items-center">
+            <Text className="w-full text-left text-xl font-semibold ">
+              My Requests:
+            </Text>
             {requests.map(r => {
               return <RequestCard key={r.date} request={r} />;
             })}
@@ -85,45 +86,4 @@ const MyRequests = ({navigation}) => {
   );
 };
 
-const styles = StyleSheet.create({
-  scrollView: {width: '100%', height: '100%'},
-  mainContainer: {flexDirection: 'column', alignItems: 'center', marginTop: 30},
-  totalsContainer: {
-    shadowOffset: {width: 1, height: 3},
-    shadowColor: '#000000',
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    backgroundColor: '#f1f5f9',
-    borderRadius: 10,
-    width: '85%',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-  },
-  totals: {
-    justifyContent: 'center',
-    alignItems: 'baseline',
-    flexDirection: 'row',
-  },
-  ActiveAndCompletedContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 4,
-    paddingTop: 10,
-  },
-  totalstext: {fontSize: 16, fontWeight: '500'},
-  numbers: {
-    fontSize: 40,
-    paddingHorizontal: 10,
-    color: '#2563eb',
-    fontFamily: 'Exo-BoldItalic',
-  },
-  myRequestContainer: {
-    width: '100%',
-    paddingHorizontal: 20,
-    marginVertical: 50,
-
-    alignItems: 'center',
-  },
-  title: {textAlign: 'left', width: '100%', fontSize: 20, fontWeight: '500'},
-});
 export default MyRequests;
