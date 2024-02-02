@@ -23,7 +23,7 @@ const RequestCard = ({request}) => {
           <Text className="text-base">{request.date}</Text>
         </View>
 
-        <Text className="text-center pt-3 pb-2 text-base">
+        <Text className="text-center pt-3 pb-1 text-base">
           {request.address}
         </Text>
         <Text
