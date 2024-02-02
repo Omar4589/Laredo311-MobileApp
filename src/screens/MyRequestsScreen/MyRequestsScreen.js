@@ -1,8 +1,6 @@
 import React from 'react';
 import {SafeAreaView, Text, View, StyleSheet} from 'react-native';
-import {TouchableHighlight} from 'react-native-gesture-handler';
 import {ScrollView} from 'react-native-gesture-handler';
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import RequestCard from '../../components/RequestCard/RequestCard';
 
 const requests = [
