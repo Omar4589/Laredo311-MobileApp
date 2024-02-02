@@ -5,6 +5,45 @@ import {ScrollView} from 'react-native-gesture-handler';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import RequestCard from '../../components/RequestCard/RequestCard';
 
+const requests = [
+  {
+    date: '2024-01-01',
+    requestType: 'Pothole Repair',
+    address: '123 Main St, Anytown, CA, 90001',
+    status: 'Active',
+  },
+  {
+    date: '2024-01-02',
+    requestType: 'Pothole Repair',
+    address: '456 Oak St, Springfield, IL, 62704',
+    status: 'Completed',
+  },
+  {
+    date: '2024-01-03',
+    requestType: 'Pothole Repair',
+    address: '789 Pine St, Libertyville, NY, 10003',
+    status: 'Canceled',
+  },
+  {
+    date: '2024-01-04',
+    requestType: 'Pothole Repair',
+    address: '321 Maple St, Smalltown, TX, 75001',
+    status: 'Active',
+  },
+  {
+    date: '2024-01-05',
+    requestType: 'Pothole Repair',
+    address: '654 Cedar St, Lakeview, FL, 33101',
+    status: 'Completed',
+  },
+  {
+    date: '2024-01-06',
+    requestType: 'Pothole Repair',
+    address: '987 Elm St, Rivertown, WA, 98001',
+    status: 'Active',
+  },
+];
+
 const MyRequests = ({navigation}) => {
   return (
     <SafeAreaView>
@@ -21,7 +60,7 @@ const MyRequests = ({navigation}) => {
               <Text style={styles.numbers}>12</Text>
             </View>
 
-            <View style={styles.activeAndCompletedContainer}>
+            <View style={styles.ActiveAndCompletedContainer}>
               <View style={styles.totals}>
                 <Text style={styles.totalstext}>Active:</Text>
                 <Text style={styles.numbers}>4</Text>
@@ -36,8 +75,9 @@ const MyRequests = ({navigation}) => {
 
           <View style={styles.myRequestContainer}>
             <Text style={styles.title}>My Requests:</Text>
-
-            <RequestCard />
+            {requests.map(r => {
+              return <RequestCard key={r.date} request={r} />;
+            })}
           </View>
         </View>
       </ScrollView>
@@ -64,7 +104,7 @@ const styles = StyleSheet.create({
     alignItems: 'baseline',
     flexDirection: 'row',
   },
-  activeAndCompletedContainer: {
+  ActiveAndCompletedContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 4,

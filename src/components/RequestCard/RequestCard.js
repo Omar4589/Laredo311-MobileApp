@@ -4,7 +4,7 @@ import {TouchableHighlight} from 'react-native-gesture-handler';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import styles from './styles';
 
-const RequestCard = () => {
+const RequestCard = ({request}) => {
   return (
     <TouchableHighlight
       style={styles.touchableHightlight}
@@ -13,7 +13,7 @@ const RequestCard = () => {
       <View style={styles.requestCard}>
         <View style={styles.typeAndDateContainer}>
           <Text style={styles.typeAndDateText}>
-            Pothole Repair{' '}
+            {request.requestType}{' '}
             <FontAwesome6
               name="road-circle-exclamation"
               size={20}
@@ -21,11 +21,18 @@ const RequestCard = () => {
             />
           </Text>
 
-          <Text style={styles.typeAndDateText}>02/11/23</Text>
+          <Text style={styles.typeAndDateText}>{request.date}</Text>
         </View>
 
-        <Text style={styles.address}>5511 Marlin Dr, Laredo, Tx, 78043</Text>
-        <Text style={styles.status}>Active</Text>
+        <Text style={styles.address}>{request.address}</Text>
+        <Text
+          style={[
+            styles.status,
+            request.status === 'Canceled' ? styles.canceledColor : {},
+            request.status === 'Completed' ? styles.completedColor : {},
+          ]}>
+          {request.status}
+        </Text>
       </View>
     </TouchableHighlight>
   );

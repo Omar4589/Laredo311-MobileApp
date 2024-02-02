@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   typeAndDateContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'baseline',
   },
 
   address: {
@@ -30,6 +31,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   status: {textAlign: 'right', fontSize: 20, color: '#2563eb'},
+  canceledColor: {color: 'red'},
+  completedColor: {color: 'black'},
 });
 
 export default styles;
