@@ -6,27 +6,13 @@ import MyRequestsScreen from '../../screens/MyRequestsScreen/MyRequestsScreen';
 import ViewRequestScreen from '../../screens/ViewRequestScreen/ViewRequestScreen';
 import createScreenOptions from '../../utils/createScreenOptions';
 import {useAlertsContext} from '../../contexts/AlertsContext';
+import StatusBadge from '../../components/StatusBadgeComponent/StatusBadge';
 
 const MyRequests = createNativeStackNavigator();
 
 const MyRequestsStack = ({}) => {
-  const statusText = route => {
-    return (
-      <View
-        className={`${
-          route.params.requestStatus === 'Canceled'
-            ? 'bg-red-600'
-            : route.params.requestStatus === 'Completed'
-            ? 'bg-slate-800'
-            : 'bg-green-500'
-        }  px-3 rounded-md`}>
-        <Text
-          className="
-      text-base text-slate-100 font-exo font-bold">
-          {route.params.requestStatus}
-        </Text>
-      </View>
-    );
+  const statusText = status => {
+    return <StatusBadge status={status} />;
   };
 
   const {toggleAlertsBox} = useAlertsContext();
@@ -43,7 +29,7 @@ const MyRequestsStack = ({}) => {
           headerBackTitleVisible: false,
           headerTintColor: '#f1f5f9',
           headerTitle: `Request: #${route.params.requestNumber}`,
-          headerRight: () => statusText(route),
+          headerRight: () => statusText(route.params.requestStatus),
           headerStyle: {backgroundColor: '#2563ea'},
           headerTitleStyle: {
             color: '#f1f5f9',

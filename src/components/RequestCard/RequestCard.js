@@ -3,6 +3,7 @@ import {Text, View} from 'react-native';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import {useHeaderVisibility} from '../../contexts/HeaderVisibilityContext';
+import StatusBadge from '../StatusBadgeComponent/StatusBadge';
 
 const RequestCard = ({request, navigation}) => {
   const {setHeaderVisible} = useHeaderVisibility();
@@ -22,7 +23,7 @@ const RequestCard = ({request, navigation}) => {
       <View className="w-full bg-slate-100 rounded-lg shadow-sm shadow-slate-400 p-3">
         <View className="flex-row justify-between items-baseline">
           <Text className="text-base">
-            {request.requestType}{' '}
+            {request.type}{' '}
             <FontAwesome6
               name="road-circle-exclamation"
               size={20}
@@ -36,7 +37,7 @@ const RequestCard = ({request, navigation}) => {
         <Text className="text-center pt-3 pb-1 text-base">
           {request.address}
         </Text>
-        <Text
+        {/* <Text
           className={`text-right text-lg ${
             request.status === 'Canceled'
               ? 'text-red-600'
@@ -45,7 +46,10 @@ const RequestCard = ({request, navigation}) => {
               : 'text-blue-600'
           }`}>
           {request.status}
-        </Text>
+        </Text> */}
+        <View className="w-28 mt-1 ml-auto">
+          <StatusBadge status={request.status} />
+        </View>
       </View>
     </TouchableHighlight>
   );
