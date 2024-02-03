@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, TouchableOpacity, StyleSheet} from 'react-native';
-import TabIcon from '../../components/TabIconComponent/TabIcon';
+import TabIcon from '../components/TabIconComponent/TabIcon';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // Function to generate tab options

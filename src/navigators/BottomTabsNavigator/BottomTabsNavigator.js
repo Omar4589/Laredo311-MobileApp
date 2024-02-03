@@ -1,27 +1,16 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeStack from '../HomeStackNavigator/HomeStack';
 import MyRequestsStack from '../MyRequestsStackNavigator.js/MyRequestsStack';
-import MyAccountScreen from '../../screens/MyAccountScreen/MyAccountScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useAlertsContext} from '../../contexts/AlertsContext';
-import createTabOptions from './createTabOptions';
+import createTabOptions from '../../utils/createTabOptions';
 import {useNavigation, DrawerActions} from '@react-navigation/native';
-import {useHeaderVisibility} from '../../contexts/HeaderVisibilityContext';
+import MyAccountStack from '../MyAccountStackNavigator/MyAccountStack';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabs = () => {
-  const {toggleAlertsBox} = useAlertsContext();
   const navigation = useNavigation();
-  const {headerVisible} = useHeaderVisibility();
-
-  //   // Inside each screen component
-  // useEffect(() => {
-  //   navigation.setOptions({
-  //     headerShown: headerVisible,
-  //   });
-  // }, [headerVisible, navigation]);
 
   return (
     <Tab.Navigator screenOptions={{headerShown: false}}>
@@ -44,7 +33,7 @@ const BottomTabs = () => {
       <Tab.Screen
         options={createTabOptions('person', 'person-outline', Ionicons)}
         name="My Account"
-        component={MyAccountScreen}
+        component={MyAccountStack}
       />
 
       <Tab.Screen
