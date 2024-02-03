@@ -5,7 +5,8 @@ import {useAuthContext} from '../../contexts/AuthContext';
 import BottomTabsNavigator from '../BottomTabsNavigator/BottomTabsNavigator';
 import LoginScreen from '../../screens/LoginScreen/LoginScreen';
 import MyAlertsBox from '../../components/MyAlertsBoxComponent/MyAlertsBox';
-import DrawerIcon from '../../components/DrawerIconComponent.js/DrawerIcon';
+import DrawerIcon from '../../components/DrawerIconComponent/DrawerIcon';
+import {useHeaderVisibility} from '../../contexts/HeaderVisibilityContext';
 
 const Drawer = createDrawerNavigator();
 
@@ -13,6 +14,7 @@ const AppDrawerNavigator = ({}) => {
   const {isLoggedIn, logoutFunc} = useAuthContext();
   const navigation = useNavigation();
   const HeaderRight = useCallback(() => <DrawerIcon />);
+  const {headerVisible} = useHeaderVisibility();
 
   return (
     <Drawer.Navigator

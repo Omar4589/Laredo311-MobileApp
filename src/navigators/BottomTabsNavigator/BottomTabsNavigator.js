@@ -2,28 +2,20 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeStack from '../HomeStackNavigator/HomeStack';
 import MyRequestsStack from '../MyRequestsStackNavigator.js/MyRequestsStack';
-import MyAccountScreen from '../../screens/MyAccountScreen/MyAccountScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useAlertsContext} from '../../contexts/AlertsContext';
-import createTabOptions from './createTabOptions';
+import createTabOptions from '../../utils/createTabOptions';
 import {useNavigation, DrawerActions} from '@react-navigation/native';
+import MyAccountStack from '../MyAccountStackNavigator/MyAccountStack';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabs = () => {
-  const {toggleAlertsBox} = useAlertsContext();
   const navigation = useNavigation();
 
   return (
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={{headerShown: false}}>
       <Tab.Screen
-        options={createTabOptions(
-          'home',
-          'home-outline',
-          Ionicons,
-          navigation,
-          toggleAlertsBox,
-        )}
+        options={createTabOptions('home', 'home-outline', Ionicons)}
         name="Home"
         component={HomeStack}
       />
@@ -33,33 +25,19 @@ const BottomTabs = () => {
           'file-tray-full',
           'file-tray-full-outline',
           Ionicons,
-          navigation,
-          toggleAlertsBox,
         )}
         name="My Requests"
         component={MyRequestsStack}
       />
 
       <Tab.Screen
-        options={createTabOptions(
-          'person',
-          'person-outline',
-          Ionicons,
-          navigation,
-          toggleAlertsBox,
-        )}
+        options={createTabOptions('person', 'person-outline', Ionicons)}
         name="My Account"
-        component={MyAccountScreen}
+        component={MyAccountStack}
       />
 
       <Tab.Screen
-        options={createTabOptions(
-          'menu-outline',
-          'menu-outline',
-          Ionicons,
-          navigation,
-          toggleAlertsBox,
-        )}
+        options={createTabOptions('menu-outline', 'menu-outline', Ionicons)}
         name="Menu"
         component={HomeStack} //setting this component has no effect here because we have prevent default below
         listeners={{
