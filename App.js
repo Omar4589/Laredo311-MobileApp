@@ -13,6 +13,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import DrawerNavigator from './src/navigators/DrawerNavigator/DrawerNavigator';
 import {AuthProvider} from './src/contexts/AuthContext';
 import {AlertsProvider} from './src/contexts/AlertsContext';
+import {HeaderVisibilityProvider} from './src/contexts/HeaderVisibilityContext';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:3001/graphql',
@@ -43,9 +44,11 @@ function App() {
       <AuthProvider>
         <AlertsProvider>
           <StatusBar />
-          <NavigationContainer>
-            <DrawerNavigator />
-          </NavigationContainer>
+          <HeaderVisibilityProvider>
+            <NavigationContainer>
+              <DrawerNavigator />
+            </NavigationContainer>
+          </HeaderVisibilityProvider>
         </AlertsProvider>
       </AuthProvider>
     </ApolloProvider>

@@ -2,13 +2,23 @@ import React from 'react';
 import {Text, View} from 'react-native';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import {useHeaderVisibility} from '../../contexts/HeaderVisibilityContext';
 
-const RequestCard = ({request}) => {
+const RequestCard = ({request, navigation}) => {
+  const {setHeaderVisible} = useHeaderVisibility();
   return (
     <TouchableHighlight
       className="rounded-lg mt-5 mb-1 min-w-full"
       underlayColor={'#2563ea'}
-      onPress={() => console.log('you pressed a card')}>
+      onPress={() =>
+        navigation.navigate('ViewRequest', {
+          requestNumber: request.number,
+          requestDate: request.date,
+          requestType: request.type,
+          requestAddress: request.address,
+          requestStatus: request.status,
+        })
+      }>
       <View className="w-full bg-slate-100 rounded-lg shadow-sm shadow-slate-400 p-3">
         <View className="flex-row justify-between items-baseline">
           <Text className="text-base">
