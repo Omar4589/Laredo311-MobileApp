@@ -1,9 +1,7 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {useFocusEffect} from '@react-navigation/native';
-import {Text} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {Text, View} from 'react-native';
 import {useHeaderVisibility} from '../../contexts/HeaderVisibilityContext';
-import {set} from 'mongoose';
 
 const ViewRequestScreen = ({route}) => {
   const {setHeaderVisible} = useHeaderVisibility();
@@ -26,14 +24,14 @@ const ViewRequestScreen = ({route}) => {
     }, [setHeaderVisible]),
   );
   return (
-    <SafeAreaView>
+    <View>
       <Text>This is the view request screen</Text>
       <Text>{requestNumber}</Text>
       <Text>{requestDate}</Text>
       <Text>{requestType}</Text>
       <Text>{requestAddress}</Text>
       <Text>{requestStatus}</Text>
-    </SafeAreaView>
+    </View>
   );
 };
 

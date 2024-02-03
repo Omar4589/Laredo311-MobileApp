@@ -47,13 +47,12 @@ const createScreenOptions = (
 
 const styles = StyleSheet.create({
   headerText: {
-    marginLeft: 10,
     fontFamily: 'Exo-BoldItalic',
     fontSize: 30,
     color: '#f1f5f9',
     // lineHeight:55
   },
-  bellIcon: {marginRight: 10, paddingBottom: 5},
+  bellIcon: {paddingBottom: 5},
 });
 
 export default createScreenOptions;
